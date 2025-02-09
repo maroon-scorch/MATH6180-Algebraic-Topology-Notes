@@ -389,6 +389,10 @@ For any pointed space $X \in T_*$, we define the \textbf{reduced suspension} of 
     Show that $\Sigma S^n$ is homeomorphic to $S^{n+1}$.
 \end{exercise}
 
+\begin{proof}
+Let $e^i$ denote a cell of dimension $i$. The $n$-sphere $S^n$ can be given the CW complex structure composing of two cells $e^0, e^n$, and the attaching map from $e^n \to e^0$ is the constant map. The product $S^n \times S^1$, as a product of two finite CW complexes $S^n$ and $S^1$, can be given the CW complex structure composing of four cells $e^0, e^1, e^n, e^{n+1}$. The reduced suspension of $S^n$ is the smash product $S^1 \wedge S^n = S^1 \times S^n / S^1 \vee S^n$, where the subspace $S^1 \vee S^n$ quotiented out is identified with the subcomplex formed by the cells $e^0, e^1,$ and $e^n$. Therefore, we take the quotient, we identify $e^0, e^1, e^n$ into a single $0$-cell. Therefore, we see that $S^1 \wedge S^n$ has the CW complex structure composing of two cells $e^0$ and $e^{n+1}$. In this case, the attaching map $\varphi: e^{n+1} \to e^0$ has to be constant since $e^0$ as a set only has a single element. Thus, we see that $S^1 \wedge S^n$ has the same CW complex structure as $S^{n+1}$. Therefore, we conclude that $S^1 \wedge S^n$ is homeomorphic to $S^{n+1}$.
+\end{proof}
+
 It turns out that under a nice condition - that the basepoint has a neighborhood that deformation retracts onto the basepoint, $\Sigma X$ and $SX$ are at least homotopy equivalent.
 
 \begin{theorem}
@@ -1097,8 +1101,68 @@ More generally, if $p: Y \to X$ is a fibration, then $p^{-1}(x)$ is called the \
     If $x, y$ are in the same path component of $X$ in a fibration $p: Y \to X$, then $p^{-1}(x)$ is homotopy equivalent to $p^{-1}(y)$.
 \end{proposition}
 
-\begin{proof}
-    Possibly Homework. The proof is not difficult.
+\begin{proof}[Added After Class Is Over]
+   We are given that $p: Y \to X$ is a fibration. This means that for any map $f: A \to Y$ and homotopy $H: A \times I \to X$ from $p \circ f$ to some other map, the following diagram commutes and admits an extension
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzEsMCwiWSJdLFswLDEsIkEgXFx0aW1lcyBJIl0sWzEsMSwiWCJdLFswLDEsImYiXSxbMCwyLCJpXzAiLDJdLFsxLDMsInAiXSxbMiwzLCJIIiwyXSxbMiwxLCJcXFRpbGRle0h9IiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+\[\begin{tikzcd}
+	A & Y \\
+	{A \times I} & X
+	\arrow["f", from=1-1, to=1-2]
+	\arrow["{i_0}"', from=1-1, to=2-1]
+	\arrow["p", from=1-2, to=2-2]
+	\arrow["{\Tilde{H}_\gamma}"{description}, dashed, from=2-1, to=1-2]
+	\arrow["H_\gamma"', from=2-1, to=2-2]
+\end{tikzcd}. \quad (\dagger)\] 
+Let $\gamma: [0, 1] \to X$ be a path from $x$ to $y$ in $X$. Consider the inclusion map $f: A = p^{-1}(x) \to Y$ given by and a map $H_\gamma: A \times I \to X$ constructed as follows:
+\begin{enumerate}
+    \item $H_\gamma(a, t) = \gamma(t)$.
+    \item Note that $H_\gamma(a, t)|_{A \times \{0\}}$ is constant onto $x \in X$. On the other hand, $p(p^{-1}(x)) = x$. Thus, the diagram $p \circ f= H_\gamma \circ i_0$.
+\end{enumerate}
+From the fibration property, we admit a map $\Tilde{H}_\gamma: A \times I \to Y$ lifting $H_\gamma$. Now we observe what this $\Tilde{H}_\gamma$ does:
+\begin{enumerate}
+    \item For all $a \in A = f^{-1}(x)$, $\Tilde{H}_\gamma(a, 0) = f(a) = a$. In other words, $\Tilde{H}_\gamma|_{A \times \{0\}}$ is the identity on $f^{-1}(x)$.
+    \item For all $a \in A = f^{-1}(x)$, $p \circ \Tilde{H}_\gamma(a, 1) = H_\gamma(a, 1) = \gamma(1) = y$. Hence, $\Tilde{H}_\gamma(a, 1) \in p^{-1}(y)$.
+    \item From here, we define $f_{\gamma}: p^{-1}(x) \to p^{-1}(y)$ as the map $\Tilde{H}_\gamma(a, 1)$.
+\end{enumerate}
+We remark that the lift given by the HLP need not be unique, so there may be different choices for $f_{\gamma}$. However, they will all be homotopic to each other because they are given by their respective $\Tilde{H}(a, t)$ that goes back to the same map on $t = 0$. So we do have a well-defined $f_{\gamma}$ up to homotopy.\\
+
+Similarly, let $\gamma^{-1}$ be the inverse path of $\gamma$ and $c_x, c_y$ be the constant path at $x,y$, we can define $(\Tilde{H}_{\gamma^{-1}}, f_{\gamma^{-1}})$, $(\Tilde{H}_{c_x}, f_{c_x})$, and $(\Tilde{H}_{c_y}, f_{c_y})$. We also note that by our construction $f_{c_x}$ and $f_{c_y}$ are actually homotopic to the identity maps since the identity homotopy is clearly a lift to their respective diagrams.\\
+
+Now we claim that $f_{\gamma}$ and $f_{\gamma^{-1}}$ are homotopic inverses. We first observe that $f_{\gamma} \circ f_{\gamma^{-1}}$ is homotopic to $f_{\gamma \cdot \gamma^{-1}}$. Indeed, this is because combining the homotopies $\Tilde{H}_{\gamma}$ (from time $1/2$ to $1$) and $\Tilde{H}_{\gamma^{-1}}$ (from time $0$ to $1/2$) would give a valid solution to the lifting problem for $(\dagger)$ with $\gamma \cdot \gamma^{-1}$ substituted in, and we estbalished earlier that any solutions to the lifting problem for the same path are homotopic. Similarly, we also have that $f_{\gamma^{-1}} \circ f_{\gamma}$ is homotopic to $f_{\gamma^{-1} \cdot \gamma}$.\\
+
+Now, we claim that $f_{\gamma \cdot \gamma^{-1}}$ is homotopic to $f_{c_y}$ and $f_{\gamma^{-1} \cdot \gamma}$ is homotopic to $f_{c_x}$, which will then conclude the proof. The argument is nearly symmetric so we will just check $f_{\gamma^{-1} \cdot \gamma}$ is homotopic to $f_{c_x}$. Indeed, we first observe that $\gamma^{-1} \cdot \gamma$ and $c_x$ are homotopic rel end points (being $x$), let $F: I \times I \to X$ be a homotopy between these two pathes (really they are loops) stationary on end-points from $\gamma^{-1} \cdot \gamma$ to $c_x$.\\
+
+We would like consider the following lifting problem for the following diagram
+\[\begin{tikzcd}
+	{p^{-1}(x) \times (I \times \{0\} \cup \{0, 1\} \times I)} && Y \\
+	\\
+	{p^{-1}(x) \times  (I \times I)} && X
+	\arrow["{\phi}", from=1-1, to=1-3]
+	\arrow["{i}"', from=1-1, to=3-1]
+	\arrow["p", from=1-3, to=3-3]
+	\arrow["G"{description}, dashed, from=3-1, to=1-3]
+	\arrow["{(a,t,s) \mapsto F(t,s)}", from=3-1, to=3-3]
+\end{tikzcd}\]
+Here the map $\phi$ is constructed as follows:
+\begin{enumerate}
+    \item $\phi(a, 0, s) = \Tilde{H}_{\gamma^{-1} \cdot \gamma}(a,s)$ for $s \in [0, 1]$.
+    \item $\phi(a, 1, s) = \Tilde{H}_{c_{x}}(a,s)$ for $s \in [0, 1]$.
+    \item $\phi(a, t, 0) = a$.
+\end{enumerate}
+ If this $G$ exist, then it would give a desired homotopy between $f_{\gamma^{-1} \cdot \gamma}$ and $f_{c_x}$ if we restrict to $G|_{p^{-1}(x) \times I \times \{1\}}$.\\
+
+Now we check that $G$ exists. Indeed, the bar $I \times \{0\} \cup \{0, 1\} \times I$ takes 3 sides of a square and is thus homeomorphic to $I \times \{0\}$, so without loss of generality this lifting problem is actually equivalent to this lifting problem
+\[\begin{tikzcd}
+	{p^{-1}(x) \times (I \times \{0\})} && Y \\
+	\\
+	{p^{-1}(x) \times  (I \times I)} && X
+	\arrow["{\phi'}", from=1-1, to=1-3]
+	\arrow["{i}"', from=1-1, to=3-1]
+	\arrow["p", from=1-3, to=3-3]
+	\arrow["G'"{description}, dashed, from=3-1, to=1-3]
+	\arrow["{(a,t,s) \mapsto F(t,s)}", from=3-1, to=3-3]
+\end{tikzcd}\]
+with an adjument $\phi'$ to $\phi$ to, of course, account for the homeomorphism. Now, $p$ is a fibration, so $G'$ exist for this, hence we can obtain a $G$ back by accounting for the homeomorphism.
 \end{proof}
 
 Corresponding to our criterion for a cofibration, we have a criterion for being a fibration.
@@ -1133,7 +1197,50 @@ $q$ is a fibration if and only if $q$ has a section $s: Y \times_X \underline{T}
 \end{proposition}
 
 \begin{proof}
-    Homework.
+If we unpack what $Y \times_X \underline{T}(I, X)$ is, it is composed of tuples $(y, \gamma)$ where $y \in X$ and a path $\gamma: [0, 1] \to X$ such that $\gamma(0) = p(y)$. The natural map
+\[q: \underline{T}(I, Y) \to Y \times_X \underline{T}(I, X)\]
+takes a path $P: [0, 1] \to Y$ and send it to $(P(0), p \circ P)$.\\
+
+From here, we see that the existence of a section $s$ is equivalent to the following formulation - for each $(y, \gamma) \in Y \times_X \underline{T}(I, X)$, we can find a path continuously $P: [0, 1] \to Y$ such that $P(0) = y$ and $p \circ P = \gamma$.\\
+
+Recall from the adjoint property, we know that a map $A \times I \to B$ is the same as a map $A \to \underline{T}(I, B)$. We now consider the diagram
+\[\begin{tikzcd}
+	Y \times_X \underline{T}(I, X) & Y \\
+	{Y \times_X \underline{T}(I, X) \times I} & X
+	\arrow["f", from=1-1, to=1-2]
+	\arrow["{i_0}"', from=1-1, to=2-1]
+	\arrow["p", from=1-2, to=2-2]
+	\arrow["{\Tilde{H}}"{description}, dashed, from=2-1, to=1-2]
+	\arrow["H"', from=2-1, to=2-2]
+\end{tikzcd}\]
+where $f$ is the usual projection map given in the pullback diagram, and $H: Y \times_X \underline{T}(I, X) \times I \to X$ is the map that corresponds to the projection $Y \times_X \underline{T}(I, X) \to \underline{T}(I, X)$ under the adjoint property. Since $p: Y \to X$ is a fibration, we obtain a map $\Tilde{H}: (Y \times_X \underline{T}(I, X)) \times I \to Y$, which corresponds to a map $^t \Tilde{H}: Y \times_X \underline{T}(I, X) \to \underline{T}(I, Y)$ by the adjoint property.\\
+
+We claim $s = ^t \Tilde{H}$ is our desired section. Indeed, recall it suffices for us to check that for any $(y, \gamma) \in Y \times_X \underline{T}(I, X)$, $s(y, \gamma)(0) = y$ and $p \circ s(y, \gamma) = \gamma$. Now, we have that
+\[s(y, \gamma)(0) = \Tilde{H}((y, \gamma), 0) = f(y, \gamma) = y.\]
+\[p \circ s(y, \gamma) = p \circ ^t \Tilde{H}(y, \gamma) = \{t \mapsto p \circ \Tilde{H}(y, \gamma, t)\}\]
+\[= \{t \mapsto H(y, \gamma, t)\} = \{t \mapsto \gamma(t)\} = \gamma.\]
+
+Thus, $s$ is our desired section!\\
+
+Conversely, suppose we have a section. We want to show that $p: Y \to X$ is a fibration. In other words for any map $f: A \to Y$ and homotopy $H: A \times I \to X$ from $p \circ f$ to some other map, the following diagram commutes and admits an extension
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzEsMCwiWSJdLFswLDEsIkEgXFx0aW1lcyBJIl0sWzEsMSwiWCJdLFswLDEsImYiXSxbMCwyLCJpXzAiLDJdLFsxLDMsInAiXSxbMiwzLCJIIiwyXSxbMiwxLCJcXFRpbGRle0h9IiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+\[\begin{tikzcd}
+	A & Y \\
+	{A \times I} & X
+	\arrow["f", from=1-1, to=1-2]
+	\arrow["{i_0}"', from=1-1, to=2-1]
+	\arrow["p", from=1-2, to=2-2]
+	\arrow["{\Tilde{H}}"{description}, dashed, from=2-1, to=1-2]
+	\arrow["H"', from=2-1, to=2-2]
+\end{tikzcd}.\]
+Indeed, here we define $\Tilde{H}$ as follows:
+\begin{enumerate}
+    \item For each $a \in A$, $t \mapsto H(a, t)$ descirbes a path $\gamma_a$ in $X$ starting at $\rho \circ f(a)$.
+    \item From the assumption with the existence of $s$, the map $s(f(a), \gamma_a)$ describes a path in $Y$ starting at $f(a)$ such that $p \circ s(f(a), \gamma_a) = \gamma_a$.
+    \item Now we define $(a, t) \mapsto \Tilde{H}(a, t)$ as the path $s(f(a), \gamma_a)(t)$ described above.
+    \item This is a continuous function because $s$ is continuous and the inputs of $s$ vary continuous on the domain. 
+\end{enumerate}
+Now we check that $\Tilde{H}$ commutes with the diagram. Indeed, $\Tilde{H} \circ i_0(a) = \Tilde{H}(a, 0) = s(f(a), \gamma_a)(0) = f(a)$ by construction. Furthermore, $p \circ \Tilde{H}(a, t) = p \circ s(f(a), \gamma_a)(t) = \gamma_a(t) = H(a, t)$. Thus, we have that the map $p: Y \to X$ is a fibration.
 \end{proof}
 
 \begin{corollary}
@@ -1466,23 +1573,84 @@ Today we will be proving Whitehead's theorem. Next week the instructor will be a
 \begin{proposition}\label{prop::null_hom_equiv}
     For a space $X$, the following are equivalent:
     \begin{enumerate}
-        \item Every map $f: S^k \to X$ is (free) homotopic to a constant map.
-        \item Every map $f: S^k \to X$ extends to a continuous map $\Tilde{f}: D^{k+1} \to X$.
-        \item $\pi_k(X, x_0) = 0$ for all $x_0 \in X$.
+        \item (a) Every map $f: S^k \to X$ is (free) homotopic to a constant map.
+        \item (b) Every map $f: S^k \to X$ extends to a continuous map $\Tilde{f}: D^{k+1} \to X$.
+        \item (c) $\pi_k(X, x_0) = 0$ for all $x_0 \in X$.
     \end{enumerate}
+\end{proposition}
+
+Exercise. Homework due next Thursday. The geometric intuition for (1) implies (2) for the first equivalence statememnts is that a null-homotopy $f: S^k \times I \to X$ factors through $S^k \times I/\sim$ where we identify $(s, 1) \sim (s', 1)$ for all $s \in S^k$. This is now a map from the cone of $S^k$ (ie. $D^{k+1}$) to $X$.
+
+\begin{proof}[Added After Class Is Over]
+    For (a) implies (b): Suppose $f: S^n \to X$ is homotopic to a constant map at $x \in X$. This means that there is a continuous function $H: S^n \times I \to X$ such that $H(s, 0) = f(s)$ and $H(s, 1) = x$ for all $s \in S^n$. We define a continuous function $F: CS^n = S^n \times I/S^n \times \{1\} \to X$ as follows:
+    \[F(s, t) = H(s, t), t < 1, F([(s, 1)]) = x.\]
+    In other words, $F$ is the same as $H$ outside the cone point and $F$ sends to cone point to $x$. By the universal property of quotient maps, $F$ would in fact be continuous (in fact, while we defined $F$ rather explicitly, it can also be seen as the unique map $F: CS^n \to X$ that factors $H$, ie. $F \circ q = H$ where $q$ is the quotient map into the cone - it is a standard fact in point set topology that if $g$ is quotient and $f \circ g$ is continuous, then $f$ is continuous).\\
+
+    Now there is an obvious homeomorphism $h$ from $D^{n+1}$ to $CS^n$ that the ``identity" on $S^n = \partial D^{n+1}$ (sending $s \in S^n$ to $(s, 0) \in CS^n$). We then see that $F \circ h: D^{n+1} \to X$ is the desired continuous extension of $f$ since for all $s \in S^n$, $F \circ h(s) = F(s, 0) = H(s, 0) = f(s)$.\\
+
+    For (b) implies (c): Let $f: (S^n, s_0) \to (X, x_0)$ be a based map sending $s_0$ to $x_0$. From (b), we know that $f$ extends to a map $\Tilde{f}: D^{n+1} \to X$. Write an element $(r, \theta) \in D^{n+1}$ in terms of the polar form ($\theta \in S^{n}$ and $r \in (0, 1]$. When $r = 0$, just denote it as the origin), there is an obvious homeomorphism $h$ from $D^{n+1}$ to $C S^{n} = S^n \times I/S^n \times 1$ given by sending $(r, \theta)$ to $(1-\theta, r)$ and the origin to the cone point. We can then construct twp map:
+    \[F: CS^n \to X, F = \Tilde{f} \circ h^{-1}.\]
+    \[H: S^n \times I \to X, H = F \circ q - q \text{ is the quotient map to the cone}.\]
+    Now, we are not actually done. This is because we want to choose a $\Tilde{f}$ such that $H(s_0, t) = x_0$ for all $t$. To do this, it suffices for us to construct a continous function $g: D^{n+1} \to D^{n+1}$ such that $g(r, s_0) = s_0$ for all $r \in (0, 1]$, $g(0) = s_0$, and $g$ is the identity on $S^n$. Then if we replace $\Tilde{f}$ with $\Tilde{f} \circ g$, then this will give a based homotopy $H$ between $f$ and the constant map at $x_0$. From there we can conclude that $\pi_n(X, x_0) = 0$.\\
+
+    To see that this function $g$ exists. For each $s \in S^{n+1}$, consider the path $\gamma_s$ from $\gamma_s(0) = s$ to $\gamma_s(1) = s_0$ that is the straight line segment (according to stereographic projection). We notice that $\gamma_{s_0}$ is the constant path. Now, we may construct $g$ as for all $r \in (0, 1]$ and $\theta \in S^{n+1}$
+    \[g(r, \theta) = \gamma_{\theta}(1-r)\]
+    \[g(0) = s_0.\]
+    This is a continuous function that satisfies the constraints we required.
+
+    For (c) implies (a): Suppose $\pi_n(X, x_0) = 0$ for all $x_0 \in X$. Let $f: S^n \to X$ be a continuous function. Let $p \in S^n$ and $f(p) \in X$, we know $\pi_n(X, f(p)) = 0$, so $f$ is based homotopic to a constant map, so it is in particular homotopic to a constant map.
+\end{proof}
+
+\begin{proposition}
     For a pair of spaces $(X, A)$, the following are equivalent:
     \begin{enumerate}
-        \item Every map $(D^k, \partial D^k) \to (X, A)$ is homotopic rel $\partial D^k$ (ie. $f_t|_{\partial D^k} = f|_{\partial D^k}$) to a map $D^k \to A$.
-        \item Every map $f: (D^k, \partial D^k) \to (X, A)$ is homotopic through maps $f_t: (D^k, \partial D^k) \to (X, A)$ to a map $f_1: D^k \to A$.
-        \item Every map $f: (D^k, \partial D^k) \to (X, A)$ is homotopic through maps $f_t: (D^k, \partial D^k) \to (X, A)$ to a constant map $f_1: D^k \to A$.
-        \item $\pi_k(X, A, x_0) = 0$ for all $x_0 \in A$.
+        \item (a) Every map $(D^k, \partial D^k) \to (X, A)$ is homotopic rel $\partial D^k$ (ie. $f_t|_{\partial D^k} = f|_{\partial D^k}$) to a map $D^k \to A$.
+        \item (b) Every map $f: (D^k, \partial D^k) \to (X, A)$ is homotopic through maps $f_t: (D^k, \partial D^k) \to (X, A)$ to a map $f_1: D^k \to A$.
+        \item (c) Every map $f: (D^k, \partial D^k) \to (X, A)$ is homotopic through maps $f_t: (D^k, \partial D^k) \to (X, A)$ to a constant map $f_1: D^k \to A$.
+        \item (d) $\pi_k(X, A, x_0) = 0$ for all $x_0 \in A$.
     \end{enumerate}
 \end{proposition}
 
 \begin{proof}
-    Exercise. Homework due next Thursday. The geometric intuition for (1) implies (2) for the first equivalence statememnts is that a null-homotopy $f: S^k \times I \to X$ factors through $S^k \times I/\sim$ where we identify $(s, 1) \sim (s', 1)$ for all $s \in S^k$. This is now a map from the cone of $S^k$ (ie. $D^{k+1}$) to $X$.
+    For (a) implies (b), from (a) we know that there is a map $H: D^n \times I \to X$ such that $H(x, 0) = f(x)$, $H|_{\partial D^n \times I} = f|_{\partial D^n}$, and $H(x, 1) = g(x)$. Now in particular, for each $x \in \partial D^n$, $H(x, t) = f|_{\partial D^n}(x) \in A$, so each map $x \mapsto H(x, t)$ is a map of pairs $(D^n, \partial D^n) \to (X, A)$. Thus, this gives a homotopy from $f$ to $g$ through ``such maps" outlined in (b).\\
+    
+    For (b) implies (c), suppose $f: (D^n, \partial D^n) \to (X, A)$ is a map of pairs. From (b), we know that there is a map $H: D^n \times I \to X$  such that $H(x, 0) = f(x)$, $x \mapsto H(x, t)$ sends $\partial D^n$ into $A$ and $H(x, 1) = g(x)$, where $g: D^n \to A$. Now, since $g: D^n \to A$ is continuous and $D^n$ is contractible, we know $g$ is null-homotopic and is homotopic to a constant map. Let $E: D^n \times [0, 1] \to A$ be this homotopy, where $E(x, 0) = g(x)$ and $E(x, 1)$ is constant for all $x$. Now consider the map $F: D^n \times [0, 1] \to X$ defined by
+    \[F(x, t) = \begin{cases}
+        H(x, 2t), t \in [0, \frac{1}{2}]\\
+        E(x, 1 - 2t), t \in [\frac{1}{2}, 1]
+    \end{cases}.\]
+    This is continuous by the glueing lemma. The maps $x \mapsto H(x, 2t), t \in [0, \frac{1}{2}]$ are map of pairs $(D^n, \partial D^n) \to (X, A)$ as we checked before. The maps $x \mapsto E(x, 1-2t), t \in [\frac{1}{2}, 1]$ are also map of pairs $(D^n, \partial D^n) \to (X, A)$ since the image of $E$ lies in $A$ completely. Thus, $F$ gives a desired homotopy of $f$ to a constant map through such maps.\\
+
+    We skip (c) implies (d) now and look at the case for (d) implies (a) first.\\
+
+    For (d) implies (a), we actually proved this as a lemma during Lecture September 17th, 2024. For completeness I will copy the exact proof written in lecture.
+    \begin{lemma}\label{lem::relative_pin_null}
+     $f: (D^n, S^{n-1}, s_0) \to (X, A, x_0)$ represents $0 \in \pi_n(X, A, x_0)$ if and only if \ul{$f \simeq g$, rel $S^{n-1}$}, where
+     \[g: (D^n, S^{n-1}, s_0) \to (A, A, x_0).\]
+     In other words, it is homotopic rel $S^{n-1}$ to a map whose image is in $A$. By homotopic rel $S^{n-1}$, we mean that we have a homotopy $H_t: (D^n, S^{n-1}, s_0) \to (X, A, x_0)$ with the additional constraint that the entire homotopy fixes what it does on $S^{n-1}$, ie.
+     \[H_t(x) = f(x), \forall t, \forall x \in S^{n-1}.\]
+\end{lemma}
+
+\begin{proof}[Added After Class Is Over]
+    The converse is obvious. If we have such homotopy rel $S^{n-1}$, it clearly gives an equivalence between $[f] = [g]$ in $\pi_n(X, A, x_0)$, where we have $g: D^n \to A$. On the other hand, $g \simeq c_{x_0}$ through maps of the the form $(D^n, S^{n-1}, p) \to (A, A, x_0) \subseteq (X, A, x_0)$ since $D^n$ is contractible.\\
+
+    For the forward direction, suppose $[f] = 0$ in $\pi_n(X, A, x_0)$. Then there exists a homotopy $H: D^n \times I \to X$ where $H_t: (D^n, S^{n-1}, s_0) \to (X, A, x_0)$ where $H_0 = f$ and $H_1 = c_{x_0}$. A pictorially representation of this homotopy is to think of the ``solid soup can" as follows:
+    \[\includegraphics[width=0.2\textwidth]{Figures/soup_can.png}\]
+    What we will do now is we will ``push the bottom of the soup can" up. More rigorously, there exists a deformation retraction that moves $D_0 = D^n \times \{0\}$ to $D_1 = D^{n} \times \{1\} \cup S^{n-1} \times I$, which are homeomorphic to $D^n$. Let $D_t$ be the intermediate level disks that rise up. When we perform this deformation retract, the object $D_t$ at the intermediate times are also homeomorphic to disks $D^n$:
+    \[\includegraphics[width=0.3\textwidth]{Figures/soup_can_dt.png}\]
+    In particular, for each $t$ we have that $\partial D_t = S^{n-1} \times \{0\}$. Now we consider for each $t$, the function
+    \[H|_{D_t}: (D_t, \partial D_t, s_0) \to (X, A, x_0)\]
+    Here, $H|_{D_t}$ NEVER moves the boundary, so it is rel $S^{n-1}$. This is our desired homotopy.
 \end{proof}
 
+Let us now come back to (c) implies (d). Suppose $f: (D^n, \partial D^n, p) \to (X, A, x_0)$ is a map of pairs with $f(p) = x_0 \in A$. From (c), we know  $f$ is homotopic through maps of pairs $(D^n, \partial D^n) \to (X, A)$ to a constant map $D^n \to A$ to some constant $c$. The image of $f$ is path-connected because $D^n$ is path-connected, so this $c$ must be in the same path-component as $x_0$. Thus, we can extend whatever homotopy this is by a path from $c$ to $x_0$, so we without loss have that $f$ is homotopic through maps of pairs $(D^n, \partial D^n) \to (X, A)$ to the constant map at $x_0 \in A$. \underline{Let $H$ denote this homotopy}. \\
+
+To show that $f$ represents $0$ in $\pi_n(X, A, x_0)$, we need a homotopy $F$ through maps of pairs $(D^n, \partial D^n) \to (X, A)$ to the constant map at $x_0 \in A$ that also fixed the based point $p$ (in other words $t \mapsto F(p, t)$ is constant with value $x_0$).
+
+Let us now consider the exact same procedure outlined in the forward direction of Lemma~\ref{lem::relative_pin_null}, ie. we construct $H|_{D_t}: (D_t, \partial D_t, s_0) \to (X, A, x_0)$ the same way. $H|_{D_t}$ is a now a homotopy rel $\partial D^n$ from $f$ to NOT THE CONSTANT MAP but a map $g: D^n \to A$ (since everything at the $D^{n} \times \{1\}$ and on $\partial D^n \times [0, 1]$ gets sent to $A$). Note that $g(p) = f(p)$ since $p \in \partial D^{n})$. This is good enough because we can find a base homotopy $E: D^n \times [0, 1] \to A$ from $g$ to the constant map at $x_0$ with $E(p, t) = x_0$ for all $x_0$.\\
+
+Combining the homotopy $H|_{D_t}$ and $E$ now gives us a desired homotopy through maps of pairs $(D^n, \partial D^n, p) \to (X, A, x_0)$ that shows $f$ represents $0$ in the relative homotopy group.
+\end{proof}
 We will first state the 3 basic theorems of homotopy theory.
 
 \begin{theorem}[Whitehead's Theorem]
@@ -6025,7 +6193,7 @@ The same argument we had for principal bundles show that
 \end{remark}
 
 \begin{question}
-    WHat about $\operatorname{Map}(S^1, S^2)$.
+    What about $\operatorname{Map}(S^1, S^2)$.
 \end{question}
 
 In this case we again have a fibration
@@ -7064,5 +7232,123 @@ What is remarkable is that the converse is also true!
 
 Now, we have reached the end of the class.
 
+\newpage
+\section{After Class (Appendix)}
+
+\subsection{More Concrete Homotopy Theory}
+\begin{proposition}
+Let $X$ be an $H$-space with
+\[\mu: X \wedge X \to X.\]
+The usual group structure on $\pi_n(X, x_0)$ coincides with the structure defined by 
+\[(f+g)(x) = \mu(f(x), g(x)).\]
+In particular, this also shows that $\pi_n(X, x_0)$ is abelian for all $n \geq 1$ (including $n = 1$).
+\end{proposition}
+
+\begin{proof}
+    In the problem, we are already given that the definition $(f + g)(x) = \mu(f(x), g(x))$ is well-defined on the level of homotopy groups. To not confuse the notations, we will use $\mu_*([f], [g])$ to denote the binary operation on $\pi_n(X, x_0)$ given by the $H$-space structure.\\
+
+    Let $e$ denote the homotopic identity that the $H$-space $X$ needs. Let $c_e$ be the constant function into $e$, we first observe that $[c_e]$ is the identity of $\pi_n(X, x_0)$ with respect to $\mu_*$. Indeed, this is because for all $x$, $\mu(f(x), c_e(x)) = \mu(f(x), e) \simeq id \circ f$.\\
+
+    Now, let $\bullet$ denote the usual group operation on $\pi_n(X, x_0)$. It suffices for us to check that the two operation on $\pi_n(X, e)$ (taking $x_0 = e$) coincide with each other. The proof of this problem follows from a usual application of the Eckmann-Hilton argument, which will incidentally also show that $\pi_1(X, x_0)$ is abelian.\\
+
+   It suffices for us to prove the claim that, for any $[f_1], [g_1], [f_2], [g_2] \in \pi_n(X, e)$, the following equality holds:
+    \[\mu_*([f_1], [g_1]) \bullet \mu_*([f_2], [g_2]) = \mu_*([f_1] \bullet [f_2], [g_1] \bullet [g_2]) \quad (\dagger)\]
+    If this claim holds, then taking $[f_2]= [c_e]$ and $[g_1] = [c_e]$ will give us that
+    \[[f_1] \bullet [g_2] = \mu_*([f_1], [c_e]) \bullet \mu_*([c_e], [g_2]) = \mu_*([f_1] \bullet [c_e], [c_e] \bullet [g_2]) = \mu_*([f_1], [g_2]).\]
+
+    Now we will prove Equation $(\dagger)$ that we gave in the claim. Let us recall that $[f] \bullet [g]$ is given by the homotopy class representing the function $f \star g$ where - for $f, g: (I^n, \partial I^n) \to (X, e)$: 
+    \[f \star g = \begin{cases}
+    f(2 x_1, x_2, ..., x_n), x_1 \in [0, \frac{1}{2}]\\
+    g(2 x_1 - 1, x_2, ..., x_n), x_1 \in [\frac{1}{2}, 1] 
+    \end{cases}.\]
+
+    Now we check that for any $(x_1, ..., x_n) \in I^n$
+    \begin{align*}
+        [\mu(f_1, g_1) \star \mu(f_2, g_2)](x_1, ..., x_n) &= \begin{cases}
+    \mu(f_1, g_1)(2 x_1, x_2, ..., x_n), x_1 \in [0, \frac{1}{2}]\\
+    \mu(f_2, g_2)(2 x_1 - 1, x_2, ..., x_n), x_1 \in [\frac{1}{2}, 1] 
+    \end{cases}\\
+    &= \begin{cases}
+        \mu(f_1(2 x_1, x_2, ..., x_n), g_1(2 x_1, x_2, ..., x_n)), x_1 \in [0, \frac{1}{2}]\\
+        \mu(f_2(2 x_1 - 1, x_2, ..., x_n), g_2(2 x_1 - 1, x_2, ..., x_n)), x_1 \in [\frac{1}{2}, 1] 
+    \end{cases}
+    \end{align*}
+    On the other hand, we have that
+    \begin{align*}
+        \mu(f_1 \star f_2, g_1 \star g_2)(x_1, ..., x_n) &= \mu(f_1 \star f_2(x_1, ..., x_n), g_1 \star g_2(x_1, ..., x_n))\\
+        &= \begin{cases}
+            \mu(f_1(2 x_1, x_2, ..., x_n), g_1(2 x_1, x_2, ..., x_n)), x_1 \in [0, \frac{1}{2}]\\
+        \mu(f_2(2 x_1 - 1, x_2, ..., x_n), g_2(2 x_1 - 1, x_2, ..., x_n)), x_1 \in [\frac{1}{2}, 1] 
+        \end{cases}
+    \end{align*}
+    Thus, we have that
+    \[\mu(f_1, g_1) \star \mu(f_2, g_2) = \mu(f_1 \star f_2, g_1 \star g_2)\]
+    Hence, we have that
+    \[\mu_*([f_1], [g_1]) \bullet \mu_*([f_2], [g_2]) = \mu_*([f_1] \bullet [f_2], [g_1] \bullet [g_2]). \]
+\end{proof}
+
+\begin{proposition}
+Consider a diagram of spaces
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzEsMCwiQiJdLFsxLDEsIkQiXSxbMCwxLCJDIl0sWzAsMywiZiIsMl0sWzAsMSwiaSJdLFszLDIsImoiLDJdLFsxLDIsImciXV0=
+\[\begin{tikzcd}
+	A & B \\
+	C & D
+	\arrow["i", from=1-1, to=1-2]
+	\arrow["f"', from=1-1, to=2-1]
+	\arrow["g", from=1-2, to=2-2]
+	\arrow["j"', from=2-1, to=2-2]
+\end{tikzcd}\]
+which commutes up to homotopy; that is, $g \circ i \simeq j \circ f$. Suppose $i$ is a cofibration, then there exists $g': B \to D$ homotopic to $g$ such that the diagram with $g$ replaced by $g'$ commutes on the nose.
+\end{proposition}
+
+\begin{proof}
+    Since $i: A \to B$ is a cofibration. This means that for any $\phi: B \to Y$ and homotopy $H: A \times I \to Y$ from $\phi \circ i$ to some other map, the following diagram commutes and admits an extension $\Tilde{H}$:
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCJBIFxcdGltZXMgXFx7MFxcfSJdLFsxLDAsIkIgXFx0aW1lcyBcXHswXFx9Il0sWzAsMSwiQSBcXHRpbWVzIEkiXSxbMSwxLCJCIFxcdGltZXMgSSJdLFsyLDIsIlkiXSxbMCwxLCJpIl0sWzAsMl0sWzEsM10sWzIsMywiZiBcXHRpbWVzIGlkX0kiLDJdLFsxLDQsImYiLDAseyJvZmZzZXQiOi01fV0sWzIsNCwiSCIsMix7Im9mZnNldCI6NX1dLFszLDQsIlxcVGlsZGV7SH0iLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\[\begin{tikzcd}
+	{A \times \{0\}} & {B \times \{0\}} \\
+	{A \times I} & {B \times I} \\
+	&& Y
+	\arrow["i", from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-2, to=2-2]
+	\arrow["\phi", shift left=5, from=1-2, to=3-3]
+	\arrow["{i \times id_I}"', from=2-1, to=2-2]
+	\arrow["H"', shift right=5, from=2-1, to=3-3]
+	\arrow["{\Tilde{H}}"{description}, dashed, from=2-2, to=3-3]
+\end{tikzcd}\]
+
+We implement the cofibration property above to the specific case where we choose $\phi$ to be $g: B \to D$ and $H$ is the homotopy from from $g \circ i$ to $j \circ f$. Then from the homotopy extension property, we have that
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCJBIFxcdGltZXMgXFx7MFxcfSJdLFsxLDAsIkIgXFx0aW1lcyBcXHswXFx9Il0sWzAsMSwiQSBcXHRpbWVzIEkiXSxbMSwxLCJCIFxcdGltZXMgSSJdLFsyLDIsIkQiXSxbMCwxLCJpIl0sWzAsMl0sWzEsM10sWzIsMywiaSBcXHRpbWVzIGlkX0kiLDJdLFsxLDQsImciLDAseyJvZmZzZXQiOi01fV0sWzIsNCwiSCIsMix7Im9mZnNldCI6NX1dLFszLDQsIlxcVGlsZGV7SH0iLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\[\begin{tikzcd}
+	{A \times \{0\}} & {B \times \{0\}} \\
+	{A \times I} & {B \times I} \\
+	&& D
+	\arrow["i", from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-2, to=2-2]
+	\arrow["g", shift left=5, from=1-2, to=3-3]
+	\arrow["{i \times id_I}"', from=2-1, to=2-2]
+	\arrow["H"', shift right=5, from=2-1, to=3-3]
+	\arrow["{\Tilde{H}}"{description}, dashed, from=2-2, to=3-3]
+\end{tikzcd}\]
+Here, $\Tilde{H}$ is a homotopy between $g$ (at $t = 0$) and to some map $g'$ (at $t = 1$). $\Tilde{H}$ restricting to $A \times I$ is also just $H$. Now we have the following series of equalities: 
+$$g' \circ i = g'|_{A} = \Tilde{H}|_{A \times \{1\}} = H_{A \times \{1\}} = j \circ f$$
+Hence, the diagram commutes on the nose!
+\end{proof}
+
+In the \textbf{After Class} section, we also want to discuss the notion of a \textbf{homotopy fiber}.
+\begin{definition}
+    Let $f: X \to Y$ be a continuous map between two spaces, the \textbf{homotopy fiber} of $f$ is constructed as follows. Let $E_f$ be the pullback of the map $e_0: Y^I \to B$ (here $Y^I$ is the path -space of maps from $[0,1]$ into $Y$, and $e_0(\gamma) = \gamma(0)$) and the map $f: X \to Y$.\\
+
+    There is a natural map $E_f \to B$ given by $(x, \gamma) \mapsto \gamma(1)$, which is a fibration, and note that $A$ can be embedded into $E_f$ as the constant pathes (which turns out to be a homotopy equivalence).\\
+
+    The homotopy fiber $\operatorname{HoFib}(f)$ is the fiber of the fibration $E_f \to B$ (which is well-defined up to homotopy).
+\end{definition}
+
+The advantage of the homotopy fiber is that they can yield a long exact sequence of homotopy groups for maps that are not necessarily fibrations.
+\begin{theorem}
+    Let $f: X \to Y$ be a map, then there is a long exact sequence of homotopy groups
+    \[... \to \pi_{n+1}(Y) \to \pi_n(\operatorname{HoFib}(f)) \to \pi_n(X) \to \pi_n(Y) \to ...\]
+\end{theorem}
 
 \end{document}
