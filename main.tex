@@ -3798,7 +3798,7 @@ Here are some examples:
 \begin{definition}
 Let $G$ be a Lie group, let $\mathcal{E} G$ be the topological category $G \times G \to G$ in the previous example (here this just uses the structure of $G$ as a topological space).\\
 
-We let $BG$ e the topological category with one object (diagrammatically this is something like $\{G \rightrightarrows *\}$).
+We let $BG$ be the topological category with one object (diagrammatically this is something like $\{G \rightrightarrows *\}$).
 \end{definition}
 
 From our previous discussion, we know that $|N \mathcal{E} G| \simeq \text{pt}$. On the other hand what is $N BG$?\\
@@ -7336,13 +7336,21 @@ $$g' \circ i = g'|_{A} = \Tilde{H}|_{A \times \{1\}} = H_{A \times \{1\}} = j \c
 Hence, the diagram commutes on the nose!
 \end{proof}
 
+\subsection{Homotopy Fiber}
+
 In the \textbf{After Class} section, we also want to discuss the notion of a \textbf{homotopy fiber}.
 \begin{definition}
-    Let $f: X \to Y$ be a continuous map between two spaces, the \textbf{homotopy fiber} of $f$ is constructed as follows. Let $E_f$ be the pullback of the map $e_0: Y^I \to B$ (here $Y^I$ is the path -space of maps from $[0,1]$ into $Y$, and $e_0(\gamma) = \gamma(0)$) and the map $f: X \to Y$.\\
-
-    There is a natural map $E_f \to B$ given by $(x, \gamma) \mapsto \gamma(1)$, which is a fibration, and note that $A$ can be embedded into $E_f$ as the constant pathes (which turns out to be a homotopy equivalence).\\
-
-    The homotopy fiber $\operatorname{HoFib}(f)$ is the fiber of the fibration $E_f \to B$ (which is well-defined up to homotopy).
+    Let $f: X \to Y$ be a map (not necessarily a fibration). Consider the pullback of the diagram
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJFX2YiXSxbMSwwLCJZXkkiXSxbMSwxLCJZIl0sWzAsMSwiWCJdLFszLDIsImYiLDJdLFsxLDIsIlxcZ2FtbWEgXFxtYXBzdG8gXFxnYW1tYSgwKSJdLFswLDFdLFswLDNdXQ==
+\[\begin{tikzcd}
+	{E_f} & {Y^I} \\
+	X & Y
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow["{\gamma \mapsto \gamma(0)}", from=1-2, to=2-2]
+	\arrow["f"', from=2-1, to=2-2]
+\end{tikzcd}\]
+    The map $E_f \to Y$ given by $(x, \gamma) \mapsto \gamma(1)$ is a fibration, we let the \textbf{homotopy fiber} of $f$, $\operatorname{Hofib}(f)$, be the fiber of $E_f \to Y$.
 \end{definition}
 
 The advantage of the homotopy fiber is that they can yield a long exact sequence of homotopy groups for maps that are not necessarily fibrations.
@@ -7350,5 +7358,54 @@ The advantage of the homotopy fiber is that they can yield a long exact sequence
     Let $f: X \to Y$ be a map, then there is a long exact sequence of homotopy groups
     \[... \to \pi_{n+1}(Y) \to \pi_n(\operatorname{HoFib}(f)) \to \pi_n(X) \to \pi_n(Y) \to ...\]
 \end{theorem}
+
+We will now discuss how this theorem is proven. Fix a base point $y \in Y$, there is an explicit model of $\operatorname{Hofib}(f)$ given as
+\[\{(x, \gamma) \in X \times Y^I\ |\ f(x) = \gamma(1) \text{ and } y = \gamma(0)\}.\]
+This also arises as the pullbacks of the form
+% https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXG9wZXJhdG9ybmFtZXtIb2ZpYn0oZikiXSxbMSwwLCJQWSJdLFswLDEsIlgiXSxbMSwxLCJZIl0sWzMsMCwiXFxvcGVyYXRvcm5hbWV7SG9maWJ9KGYpIl0sWzMsMSwiXFx7eVxcfSJdLFs0LDAsIkVfZiJdLFs0LDEsIlkiXSxbMCwxXSxbMCwyXSxbMiwzLCJmIiwyXSxbMSwzLCJcXGdhbW1hIFxcbWFwc3RvIFxcZ2FtbWEoMSkiXSxbNCw1LCJcXHRleHR7Y29uc3RhbnR9IiwyXSxbNCw2XSxbNiw3LCJcXGdhbW1hIFxcbWFwc3RvIFxcZ2FtbWEoMCkiXSxbNSw3LCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dXQ==
+\[\begin{tikzcd}
+	{\operatorname{Hofib}(f)} & PY && {\operatorname{Hofib}(f)} & {E_f} \\
+	X & Y && {\{y\}} & Y
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow["{\gamma \mapsto \gamma(1)}", from=1-2, to=2-2]
+	\arrow[from=1-4, to=1-5]
+	\arrow["{\text{constant}}"', from=1-4, to=2-4]
+	\arrow["{\gamma \mapsto \gamma(0)}", from=1-5, to=2-5]
+	\arrow["f"', from=2-1, to=2-2]
+	\arrow[hook, from=2-4, to=2-5]
+\end{tikzcd}\]
+Here $PY$ is the space of pathes in $Y$ that start at $y \in Y$.\\
+
+Observe this description gives the following property.
+\begin{proposition}
+    Let $f: X \to Y$ and $g: Y \to Z$, then $g \circ f$ is null-homotopic if and only if the map $f: X \to Y$ lifts to a map $f': X \to \operatorname{Hofib}(g)$.
+\end{proposition}
+
+Write $\operatorname{Hofib}(g) \xrightarrow{i} Y \xrightarrow{g} Z$, we can rephrase the proposition above to be that the following sequence is exact:
+\[[X, \operatorname{Hofib}(g)] \xrightarrow{i_*: \beta \mapsto i \circ \beta} [X, Y] \xrightarrow{g_*: \alpha \mapsto g \circ \alpha} [X, Z].\]
+In other words, $\ker(g_*)$ (ie. composition with $g$ is null-homotopic) is equal to $\operatorname{im}(i_*)$ (ie. lifts to $\operatorname{Hofib}(g)$).
+
+\begin{question}
+    Can we extend this exact sequence to be longer?
+\end{question}
+
+We first observe the following:
+\begin{definition}
+    Let $f: (X, x) \to (Y, y)$ be a map. We can construct a map $j: \Omega Y \to \operatorname{Hofib}(f)$ as follows. Fix $y \in Y$ and take $\operatorname{Hofib}(y) = \{(x', \gamma) \in X \times Y^I\ |\ \gamma(0) = y \text{ and } \gamma(1) = f(x')\}$, then we can include $\Omega Y$ (based at $y$) to $\operatorname{Hofib}(f)$ by sending a loop $\gamma$ to $(x, \gamma)$ (as $f(x) = y$). 
+\end{definition}
+
+Observe that the composition $i \circ j$ sends a loop $\gamma$ to $x$ and is thus null-homotopic. Thus, there exists a lift $j': \Omega(Y) \to \operatorname{Hofib}(i)$. From here one can check that:
+\begin{proposition}
+    The map $j': \Omega(Y) \to \operatorname{Hofib}(i)$ induces a homotopy equivalence.
+\end{proposition}
+
+We can extend this sequence further and in particular obtain that.
+\begin{theorem}
+    Let $f: X \to Y$ be a based map and $Z$ be a space, then there is a long exact sequence of pointed spaces:
+    \[... \to [Z, \Omega \operatorname{Hofib}(f)] \to [Z, \Omega X] \to [Z, \Omega Y] \to  [Z, \operatorname{Hofib}(f)] \to [Z, X] \to [Z, Y].\]
+\end{theorem}
+
+As a corollary, when $Z = S^0$, the Suspension-Loop adjunction gives the long exact sequence of homotopy groups in the beginning of this section.
 
 \end{document}
