@@ -6967,9 +6967,9 @@ Recall also that we stated last time:
 
 From here, we defined the higher Chern classes in the following way.
 \begin{definition}
-    Let $x \coloneqq c_1(\gamma_E^{*}) = -c_1(\gamma_E) \in H^2(X)$.  There exists a unique linear combination (choosing the coefficients $c_i$) such that
+    Let $x \coloneqq c_1(\gamma_E^{*}) = -c_1(\gamma_E) \in H^2(\Pbb(E))$.  There exists a unique linear combination (choosing the coefficients $c_i$) such that
     \[x^n + c_1 x^{n-1} + c_2 x^{n-2} + ... + c_k = 0\]
-    where $c_i \in H^{2i}(X)$. From here, we define the \textbf{$i$-th Chern class} as
+    where $c_i \in H^{2i}(X)$ (by an abuse of notation, these $c_i$'s really mean $p^*(c_i)$ wrt to $p: \Pbb(E) \to X$). From here, we define the \textbf{$i$-th Chern class} as
     \[c_i(E) \coloneqq c_i.\]
     We also define $c_0(E) = 1$, and $c_i(E) = 0$ for $i > \operatorname{rank} E$. To talk about all the Chern classes at once, we define the \textbf{total Chern class} by
     \[c(E) \coloneqq \sum_{i=0}^{\infty} c_i(E) \in H^{even}(X).\] 
@@ -7233,9 +7233,8 @@ What is remarkable is that the converse is also true!
 Now, we have reached the end of the class.
 
 \newpage
-\section{After Class (Appendix)}
-
-\subsection{More Concrete Homotopy Theory}
+\appendix
+\section{More Concrete Homotopy Theory}
 \begin{proposition}
 Let $X$ be an $H$-space with
 \[\mu: X \wedge X \to X.\]
@@ -7336,6 +7335,7 @@ $$g' \circ i = g'|_{A} = \Tilde{H}|_{A \times \{1\}} = H_{A \times \{1\}} = j \c
 Hence, the diagram commutes on the nose!
 \end{proof}
 
+\newpage
 \subsection{Homotopy Fiber}
 
 In the \textbf{After Class} section, we also want to discuss the notion of a \textbf{homotopy fiber}.
@@ -7407,5 +7407,119 @@ We can extend this sequence further and in particular obtain that.
 \end{theorem}
 
 As a corollary, when $Z = S^0$, the Suspension-Loop adjunction gives the long exact sequence of homotopy groups in the beginning of this section.
+
+\newpage
+\section{The Lyndon–Hochschild–Serre Spectral Sequence}
+
+The purpose of this section is to present the so-called Lyndon-Hochschild-Serre spectral in homological algebra as a consequence of the Serre spectral sequence.
+
+\begin{theorem}
+    Let $1 \to N \to G \to K \to 1$ be an exact sequence of groups and $A$ be a $\Zbb[G]$-module, then there is a homological \textbf{Lyndon–Hochschild–Serre (LHS) spectral sequence} in the first quadrant:
+    \[E^2_{p,q} = H_p(K, H_q(N, A)) \implies H_{p+q}(G, A). \]
+    Here the homology terms mean group homology.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+    There is a purely algebraic proof of this - in fact it is a special case of the Grothendieck spectral sequence. We offer a topological proof. The naive idea is that for an exact sequence of groups
+    \[1 \to N \to G \to K \to 1\]
+    Applying the classfying space constructions gives a fibration of the form
+    \[BN \to BG \to BK.\]
+    We can then apply the ordinary homological Serre spectral sequence, except it will run into two difficulties:
+    \begin{enumerate}
+        \item $BK$ is not typically simply connected, so there is no nice description of the $E^2$ page.
+        \item The ordinary homologies of the classfying spaces gives only group homologies with trivial $G$-actions.
+    \end{enumerate}
+    Both issues are addressed with introducing \textbf{homology with local coefficients}. This is a refinement of ordinary homology over spaces that are not simply connected. The idea is that for a space $X$, $\pi_1(X)$ has an action on the universal cover $\Tilde{X}$, so the chain complex $C_n(\Tilde{X})$ has the structure of a $\Zbb[\pi_1(X)]$-module. For a $\Zbb[\pi_1(X)]$-module $A$, we define the $H_n(X; A)$ as the homology of the chain complex:
+    \[C_k(X; A) \coloneqq C_n(\Tilde{X}) \otimes_{\Zbb[\pi_1(X)]} A, \partial_k^A \coloneqq (\partial_k: C_k(X) \to C_{k-1}(X)) \otimes id_A. \]
+   Now, in the case where $X = BG$, what is a $\Zbb[\pi_1(X)]$ module? Well,
+   \[\Zbb[\pi_1(BG)] = \Zbb[\pi_0(\Omega BG)] = \Zbb[G], \]
+   so a $\Zbb[\pi_1(X)]$-module $A$ is the same as a $\Zbb[G]$-module, and we in general have that
+   \[H_k(BG; A) \cong H_k(G; A).\]
+   There is a general version of the Serre spectral sequence that uses homology with local coefficient systems, which completes the proof.
+\end{proof}
+
+\begin{proposition}
+    The homological Lyndon-Hochschild-Serre spectral sequence yields a low-degree exact sequence of the form
+    \[H_2(G; A) \to H_2(K; H_0(N, A)) \to H_0(K; H_1(N, A)) \to H_1(G; A) \to H_1(K; H_0(N, A)) \to 0.\]
+\end{proposition}
+
+\begin{proof}
+    Let us look at the $E^2$-page of the spectral sequence. It is of the form
+% https://q.uiver.app/#q=WzAsMTUsWzAsMiwiMiJdLFsxLDUsIjAiXSxbMCw0LCIwIl0sWzAsMywiMSJdLFswLDEsIlxcdmRvdHMiXSxbMiw1LCIxIl0sWzMsNSwiMiJdLFs0LDUsIi4uLiJdLFswLDAsIkVeMl97cCxxfSJdLFsxLDQsIkhfMChLLCBIXzAoTiwgQSkpIl0sWzIsNCwiSF8xKEssIEhfMChOLCBBKSkiXSxbMyw0LCJIXzIoSywgSF8wKE4sIEEpKSJdLFsyLDMsIkhfMShLLCBIXzEoTiwgQSkpIl0sWzEsMywiSF8wKEssIEhfMShOLCBBKSkiXSxbMSwyLCJIXzAoSywgSF8yKE4sIEEpKSJdLFsxMSwxMywiZF8yIiwxXV0=
+\[\begin{tikzcd}
+	{E^2_{p,q}} \\
+	\vdots \\
+	2 & {H_0(K, H_2(N, A))} \\
+	1 & {H_0(K, H_1(N, A))} & {H_1(K, H_1(N, A))} \\
+	0 & {H_0(K, H_0(N, A))} & {H_1(K, H_0(N, A))} & {H_2(K, H_0(N, A))} \\
+	& 0 & 1 & 2 & {...}
+	\arrow["{d_2}"{description}, from=5-4, to=4-2]
+\end{tikzcd}\]
+The differential $d_2$ is the last time an arrow will hit $E_{0,1}^2$ on the page. On the $E^{\infty}$-page, there is an extension problem that occurs at $H_{1}(G, A)$. In particular, the extension problem fits in an exact sequence
+\[0 \to H_0(K, H_1(N, A))/\operatorname{im}(d_2)  \to H_{1}(G, A) \to H_1(K, H_0(N, A)) \to 0 \]
+Now we have the term $H_0(K, H_1(N, A))/\operatorname{im}(d_2)$ on the left, so to extend the sequence, we have that
+\[? \to H_2(K, H_0(N, A)) \xrightarrow{d_2} H_0(K, H_1(N, A))  \to H_{1}(G, A) \to H_1(K, H_0(N, A)) \to 0 \]
+We seek a map into $H_2(K; H_0(N, A))$ whose image is the kernel of $d_2$. Observe that $\ker(d_2) = E^{\infty}_{2, 0}$, and we have $\operatorname{gr} H_2(G, A) \cong E^{\infty}_{0, 2} \oplus E^{\infty}_{1, 1} \to E^{\infty}_{2, 0}$. $H_2(G,A)$ is obtained from the extension problems
+\[0 \to E_{0,2}^{\infty} \to X \to E^{\infty}_{1, 1} \to 0 \text{ and } 0 \to X \to H_2(G, A) \to E^{\infty}_{2, 0} \to 0.\]
+This gives a map $H_2(G, A) \to E^{\infty}_{2, 0} = \ker(d_2)$ that is surjective, so we can extend to
+\[H_2(G, A) \to H_2(K, H_0(N, A)) \xrightarrow{d_2} H_0(K, H_1(N, A))  \to H_{1}(G, A) \to H_1(K, H_0(N, A)) \to 0 \]
+\end{proof}
+
+\begin{remark}
+    The formalism of constructing this \textbf{short term exact sequence} works well beyond the setting of the LHS spectral sequence. If the author is not mistaken, this should work over any homological spectral sequence contained in the first quadrant.
+\end{remark}
+
+\newpage
+\section{A Relative Serre Spectral Sequence}
+With some more care, the Serre spectral sequence can in fact be extended to a relative version below.
+
+\begin{definition}
+    A \textbf{relative fiber bundle} is the maps $(F, F') \to (E, E') \xrightarrow{\pi} B$ with $F' \subset F$, $E' \subset E$ such that there is an open cover $U = \{U_{\alpha}\}$ of $B$ such that over each $U_{\alpha}$, we have that fiberwise homeomorphisms of the form (ie. satisfying the expected conditions):
+    \[\pi^{-1}(U_{\alpha}) \cong U_{\alpha} \times F \text{ and } \pi^{-1}(U_{\alpha}) \times E' \cong U_{\alpha} \times F'\]
+\end{definition}
+
+\begin{theorem}
+    Let $(F, F') \to (E, E') \xrightarrow{\pi} B$ be a relative fiber bundle. Suppose that either:
+    \begin{enumerate}
+        \item $B$ is simply connected, or
+        \item $R = \Zbb/2$ and $(F, F')$ has $\Zbb/2$-cohomology equal to $\Zbb/2$ concentrated in a single degree.
+    \end{enumerate}
+    Then there is a cohomological Serre spectral sequence with signature
+    \[E^{s,t}_2 = H^s(B; H^t(F, F'; R)) \implies H^s(E, E'; R).\]
+    There is a similar spectral sequence for the homological case.
+\end{theorem}
+
+As a corollary of the relative Serre spectral sequence, we may obtain a simple proof of the \textbf{Thom isomorphism theorem}.
+
+\begin{definition}
+    Let $p: E \to B$ be a real vector bundle equipped with a metric of rank $n$. Observe that over the fiber of $x \in B$, we can define two subspaces $S_x, D_x \subset p^{-1}(x)$ where
+    \[S_x \coloneqq \{v \in p^{-1}(x)\ |\ |v| = 1\} \text{ and } D_x \coloneqq \{v \in p^{-1}(x)\ |\ |v| \leq 1\}.\]
+    Note consequently the relative integral cohomology $H^n(D_x, S_x)$ is concentrated at one degree with a generator (depends up to sign). Call this a choice of an orientation at the fiber.\\
+    
+    Let $S(E), D(E)$ denote the unit sphere bundle and unit disk bundle of $p: E \to B$, we say that an element $\alpha \in H^n(D(E), S(E))$ is called the integral \textbf{Thom class} of $p: E \to B$ if there exists a compatible choice of orientations at the fibers such that $\alpha$ restricts to each orientaton choice in the map induced by $(D_x, S_x) \to (D(E), S(E))$.\\
+
+    We can similarly define a $\Zbb/2$ \textbf{Thom class}. Note that $\Zbb/2$ Thom classes always exist! Notationally we write the Thom class as $\operatorname{th}(E)$.
+\end{definition}
+
+\begin{theorem}[Thom Isomorphism Theorem]
+    Let $p: E \to B$ be a real vector bundle of rank $n$ over path-connected base space $B$, then there is an isomorphism
+    \[H^{*}(B; \Zbb/2) \to H^{*+n}(D(E), S(E); \Zbb/2), y \mapsto \pi^{*}(x) \cup \operatorname{th}(E)\]
+    where we first pull $x$ into $H^*(D(E); \Zbb/2)$ and then run the relative cup product for the pair $(D(E), \emptyset)$ and $(D(E), S(E))$.
+\end{theorem}
+
+\begin{proof}
+    We apply the relative Serre spectral sequence with $R = \Zbb/2$ to the relative fiber bundle
+    \[(D^{n+1}, S^n) \to (D(E), S(E)) \to B\]
+    Since the cohomology of $(D^{n+1}, S^{n})$ is concentrated in one degree as $\Zbb/2$, the Serre spectral sequence collapses on the $E^2$-page for combinatorics reasons. On the $E^{\infty}$-page the dimensions are shifted, after adjusting the shifting we exactly obtain the isomorphism:
+    \[H^{*}(B; \Zbb/2) \cong H^{*+n}(D(E), S(E); \Zbb/2).\]
+    Since the isomorphism sends generators to generators, we have that $1 \in H^{0}(B; \Zbb/2)$ corresponds to the Thom class $th(E) \in H^{n}(D(E), S(E); \Zbb;2)$. Since this is a multiplicative isomorphism, we clearly have the maps are given by the relative cup product.
+\end{proof}
+
+
+
+% \newpage
+% \section{The Adams Spectral Sequence}
+
+% One might argue that the topic of the Adams spectral sequence is one motivation for 
 
 \end{document}
